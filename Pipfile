@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+discord-py-slash-command = ">=4.2.1"
+python-dotenv = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"
+
+[packages.interactions-tasks]
+git = "https://github.com/Catalyst4222/interactions-tasks"
+ref = "c04c852699d187ae1a0b5a3b0d7c234fcd689d7c"
