@@ -6,6 +6,7 @@ from typing import Dict, Any, Optional, List, Tuple
 import interactions
 from interactions.client.get import get as interactions_get
 
+_FILE = "data/persistence.json"
 _DEFAULT = {
     "running": False,
     "message": "",
@@ -22,8 +23,8 @@ _running_guilds: Dict[str, Dict[str, Any]] = {}
 
 def load():
     global _persisted_data
-    if os.path.exists("persistence.json"):
-        with open("persistence.json", "r") as file:
+    if os.path.exists(_FILE):
+        with open(_FILE, "r") as file:
             _persisted_data = json.load(file)
 
             for (s_id, guild) in _persisted_data.items():
@@ -40,7 +41,8 @@ def load():
 
 def save():
     global _persisted_data
-    with open("persistence.json", "w") as file:
+    os.makedirs(os.path.dirname(_FILE), exist_ok=True)
+    with open(_FILE, "w") as file:
         json.dump(_persisted_data, file)
 
 
