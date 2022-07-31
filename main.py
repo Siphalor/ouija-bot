@@ -7,6 +7,8 @@ from interactions.ext.tasks import create_task, IntervalTrigger
 
 import persistence
 
+VERSION = "1.0.0"
+
 load_dotenv()
 
 SCOPE = os.getenv("DISCORD_SCOPE")
@@ -46,6 +48,16 @@ config_options_option = interactions.Option(
         )
     ]
 )
+
+
+@bot.command(
+    name="about",
+    description="Information about this bot",
+    scope=SCOPE
+)
+async def about_command(ctx: interactions.CommandContext):
+    await ctx.send(f"ouija-bot - a small bot providing ouija functionality written in Python by Siphalor.\n"
+                   f"Version: {VERSION}")
 
 
 @bot.command(
