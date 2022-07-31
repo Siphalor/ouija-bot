@@ -7,7 +7,7 @@ from interactions.ext.tasks import create_task, IntervalTrigger
 
 import persistence
 
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 
 load_dotenv()
 
@@ -227,7 +227,7 @@ async def timer():
         running_data['timer'] = 0
         message = running_data['guild']['message']
 
-        def miss() -> bool:
+        async def miss() -> bool:
             running_data['misses'] += 1
             if running_data['misses'] > 6:
                 await running_data['channel'].send(f"Goodbye: {message}")
