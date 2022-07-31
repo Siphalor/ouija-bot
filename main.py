@@ -7,7 +7,7 @@ from interactions.ext.tasks import create_task, IntervalTrigger
 
 import persistence
 
-VERSION = "1.0.1"
+VERSION = "1.0.2"
 
 load_dotenv()
 
@@ -237,7 +237,7 @@ async def timer():
 
         if running_data['guild']['mode'] == "robbin":
             if running_data.get('last_message') == message:
-                if miss():
+                if await miss():
                     return
             else:
                 running_data['last_message'] = message
@@ -270,7 +270,7 @@ async def timer():
                 await running_data['channel'].send("No letters received; adding space: " + message)
                 message += ' '
             else:
-                miss()
+                await miss()
 
         running_data['guild']['message'] = message
         running_data['units'] = {}
