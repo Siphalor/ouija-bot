@@ -1,5 +1,8 @@
 # Runtime
 .env
 
+# Data files
+persistence.json
+
 # Editors
 .idea/
