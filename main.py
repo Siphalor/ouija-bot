@@ -171,7 +171,7 @@ async def config_set_command(ctx: interactions.CommandContext, option: str, valu
 
         await ctx.send(f"Lowercase all is now set to {guild_data['lowercase']}.", ephemeral=True)
 
-    elif option == "poll_time":
+    elif option == "time":
         if not value.isnumeric() and int(value) > 0:
             await ctx.send("Incorrect value, must be numeric and positive", ephemeral=True)
             return
