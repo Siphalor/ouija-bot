@@ -215,15 +215,21 @@ async def timer():
         running_data['timer'] = 0
         message = running_data['guild']['message']
 
+        def miss() -> bool:
+            running_data['misses'] += 1
+            if running_data['misses'] > 6:
+                await running_data['channel'].send(f"Goodbye: {message}")
+                persistence.stop_guild(str(running_data['channel'].guild_id))
+                return True
+            return False
+
         if running_data['guild']['mode'] == "robbin":
             if running_data.get('last_message') == message:
-                running_data['misses'] += 1
-                if running_data['misses'] > 6:
-                    await running_data['channel'].send(f"Goodbye: {message}")
-                    persistence.stop_guild(str(running_data['channel'].guild_id))
+                if miss():
                     return
             else:
                 running_data['last_message'] = message
+                running_data['misses'] = 0
 
             await running_data['channel'].send(f"Current message: {message}")
             return
@@ -250,9 +256,9 @@ async def timer():
         else:
             if message and message[len(message) - 1] != ' ':
                 await running_data['channel'].send("No letters received; adding space: " + message)
+                message += ' '
             else:
-                await running_data['channel'].send("No letters received; skipping: " + message)
-            message += ' '
+                miss()
 
         running_data['guild']['message'] = message
         running_data['units'] = {}
